@@ -27,3 +27,37 @@ def load_image(name,scale=1):
     image = pygame.transform.scale(image,size)
     image = image.convert()
     return image,image.get_rect()
+
+
+
+class Alien(pygame.sprite.Sprite):
+
+    def __init__(self,image):
+        super().__init__()
+        self.image,self.rect = load_image(image)
+        
+    
+
+    def update(self,right=True):
+        """Purpose: move the sprite left of right
+        :param right: boolean indicating if the sprite is moving right of not"""
+        if right:
+            self.rect.x +=1
+        else:
+            self.rect.x -=1
+
+
+class Squid_Alien(Alien):
+    def __init__(self, image):
+        super().__init__(image)
+        self.score = 10
+
+
+class Minion_Alien(Alien):
+    def __init__(self, image):
+        super().__init__(image)
+        self.score = 10
+
+
+
+
