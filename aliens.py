@@ -60,4 +60,19 @@ class Minion_Alien(Alien):
 
 
 
+class Player(Alien):
+    def __init__(self, image):
+        super().__init__(image)
+        self.lives = 3
+
+    
+    def move_left(self):
+        '''Purpose: move the player character to the left'''
+        self.rect.x -=2
+    
+    def move_right(self):
+        '''Purpose: move the player character to the right'''
+        self.rect.x +=2
+    
+
 
