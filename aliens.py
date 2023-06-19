@@ -34,7 +34,7 @@ class Alien(pygame.sprite.Sprite):
 
     def __init__(self,image):
         super().__init__()
-        self.image,self.rect = load_image(image)
+        self.image,self.rect = load_image(image,0.2)
         
     
 
@@ -76,3 +76,12 @@ class Player(Alien):
     
 
 
+class bullet(pygame.sprite.Sprite):
+    def __init__(self,x,y) -> None:
+        super().__init__()
+        self.image,self.rect = load_image("bullet.png")
+        self.rect.x,self.rect.y = x,y
+    
+    def update(self):
+        self.rect.y +=1
+        
