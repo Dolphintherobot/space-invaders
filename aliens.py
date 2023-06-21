@@ -45,6 +45,11 @@ class Alien(pygame.sprite.Sprite):
             self.rect.x +=1
         else:
             self.rect.x -=1
+    
+    def shoot(self):
+        """Purpose:to return a bullet object at the position of the shooter"""
+        return bullet(self.rect.x,self.rect.y)
+
 
 
 class Squid_Alien(Alien):
@@ -83,5 +88,7 @@ class bullet(pygame.sprite.Sprite):
         self.rect.x,self.rect.y = x,y
     
     def update(self):
-        self.rect.y +=1
-        
+        self.rect.y -=1
+
+        if self.rect.y < -10:
+            self.kill()
