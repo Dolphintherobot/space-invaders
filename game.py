@@ -30,6 +30,7 @@ class Space_invaders:
         self.walls = pygame.sprite.Group()
         self.bullets = pygame.sprite.Group()
         self.player = aln.Player("player.png")
+        self.all_sprites = pygame.sprite.Group()
     
     def create_walls(self):
         '''Purpose:create walls for collision detection'''
@@ -41,7 +42,17 @@ class Space_invaders:
     
         
     def create_aliens(self):
-            pass
+            """Purpose:to create a 11x5 section of aliens
+            """
+            x = 0
+            y = 0
+            size_alien = aln.Alien("green_squid.png")
+            size = size_alien.image.get_size()
+            margin  = 15
+            space = margin + size[0]
+            for n in range(11):
+                self.create_alien_helper(x,y)
+                x+= space
         
     def create_alien_helper(self,x,y):
         '''Purpose: to create a 1x5 column of aliens
@@ -56,21 +67,45 @@ class Space_invaders:
         space = margin +squid.image.get_size()[1]
         y+=space
         self.aliens.add(squid)
+        self.all_sprites.add(squid)
 
         for n in range(2):
             frog_alien = aln.Minion_Alien("frog_alien.png")
             frog_alien.set(x,y)
             y+=space
             self.aliens.add(frog_alien)
+            self.all_sprites.add(frog_alien)
 
         for n in range(2):
             grumpy_alien = aln.Minion_Alien("grumpy_alien.png")
             grumpy_alien.set(x,y)
             y+=space
             self.aliens.add(grumpy_alien)
+            self.all_sprites.add(grumpy_alien)
 
 
     def play(self):
-        pass
-            
+        pygame.init()
+        clock = pygame.time.Clock()
+        self.create_aliens()
+        done = False
+        while not done:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    done = True
+                
 
+
+           
+            self.screen.fill(self.screen_color)
+            
+            self.all_sprites.draw(self.screen)
+            
+            pygame.display.flip()
+            clock.tick(60)
+            
+        pygame.quit()
+
+
+sv = Space_invaders()
+sv.play()
