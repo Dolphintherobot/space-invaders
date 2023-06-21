@@ -55,7 +55,7 @@ class Alien(pygame.sprite.Sprite):
         Param x: int representing x coordinate
         Param y: int representing y coordinate
         :Note: Will not do anything once an alien has been moved"""
-        if self.x !=0 or self.y != 0:
+        if self.rect.x !=0 or self.rect.y != 0:
             return
         self.rect.x,self.rect.y = x,y
 
