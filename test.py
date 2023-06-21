@@ -25,9 +25,9 @@ import aliens as aln
 
 
 
-def main():
+def movement_Test():
     '''
-    Purpose:program that runs the gui
+    Purpose:check to see that if everything is working and interacting with each other correctly
     '''
 
     
@@ -54,7 +54,8 @@ def main():
     alien_group = pygame.sprite.Group()
     alien_group.add(alien1,alien2) 
     all_sprites = pygame.sprite.Group() 
-    all_sprites.add(alien1,alien2,player)  
+    all_sprites.add(alien1,alien2,player) 
+    player_bullets = pygame.sprite.Group() 
     
 
     
@@ -68,13 +69,23 @@ def main():
                 
                 if event.key == pygame.K_LEFT:
                     player.move_left()
-            
-        screen.fill(BLACK)
-        # alien_group.update()
-        all_sprites.draw(screen)
-        
+                if event.key == pygame.K_SPACE:
+                    if len(player_bullets) > 0:
+                        continue
+                    bullet = player.shoot()
+                    player_bullets.add(bullet)
+                    all_sprites.add(bullet)
 
-        
+
+        if len(player_bullets) > 0:
+            collision = pygame.sprite.spritecollide(bullet,alien_group,True)  
+
+            if len(collision) > 0:
+                bullet.kill()
+        player_bullets.update()
+        screen.fill(BLACK)
+        alien_group.update()
+        all_sprites.draw(screen)
         
         pygame.display.flip()
         clock.tick(60)
@@ -84,4 +95,4 @@ def main():
 
 
 
-main()
+movement_Test()
