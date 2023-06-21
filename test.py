@@ -57,7 +57,12 @@ def movement_Test():
     all_sprites.add(alien1,alien2,player) 
     player_bullets = pygame.sprite.Group() 
     
+    a = aln.Alien("player.png")
 
+    a.set(1,2)
+    print(a.rect.x,a.rect.y)
+    a.set(3,4)
+    print(a.rect.x,a.rect.y)
     
     while not done:
         for event in pygame.event.get():
@@ -96,3 +101,4 @@ def movement_Test():
 
 
 movement_Test()
+
