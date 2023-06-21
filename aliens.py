@@ -91,6 +91,10 @@ class Player(Alien):
         '''Purpose: move the player character to the right'''
         self.rect.x +=2
     
+    def set(self):
+        """Purpose:overide the set method being inherited, this class should not have that functionality"""
+        pass
+    
 
 
 class bullet(pygame.sprite.Sprite):
