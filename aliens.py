@@ -34,7 +34,7 @@ class Alien(pygame.sprite.Sprite):
 
     def __init__(self,image):
         super().__init__()
-        self.image,self.rect = load_image(image,0.2)
+        self.image,self.rect = load_image(image,0.1)
         
     
 
