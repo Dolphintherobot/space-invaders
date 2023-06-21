@@ -40,33 +40,37 @@ class Space_invaders:
 
     
         
-def create_aliens(self):
+    def create_aliens(self):
+            pass
+        
+    def create_alien_helper(self,x,y):
+        '''Purpose: to create a 1x5 column of aliens
+        :param x: int,representing x coordinate on the screen
+        :param y: int,representing y coordinate on the screen
+        :Note: will modfiy the aliens group class'''
+        
+        margin = 15
+
+        squid = aln.Squid_Alien("green_squid.png")
+        squid.set(x,y)
+        space = margin +squid.image.get_size()[1]
+        y+=space
+        self.aliens.add(squid)
+
+        for n in range(2):
+            frog_alien = aln.Minion_Alien("frog_alien.png")
+            frog_alien.set(x,y)
+            y+=space
+            self.aliens.add(frog_alien)
+
+        for n in range(2):
+            grumpy_alien = aln.Minion_Alien("grumpy_alien.png")
+            grumpy_alien.set(x,y)
+            y+=space
+            self.aliens.add(grumpy_alien)
+
+
+    def play(self):
         pass
-    
-def create_alien_helper(self,x,y):
-    '''Purpose: to create a 1x5 column of aliens
-    :param x: int,representing x coordinate on the screen
-    :param y: int,representing y coordinate on the screen'''
-    
-    margin = 15
-
-    squid = aln.Squid_Alien("green_squid.png")
-    squid.set(x,y)
-    space = margin +squid.image.get_size()[1]
-    y+=space
-    self.aliens.add(squid)
-
-    for n in range(2):
-        frog_alien = aln.Minion_Alien("frog_alien.png")
-        frog_alien.set(x,y)
-        y+=space
-        self.aliens.add(frog_alien)
-
-    for n in range(2):
-        grumpy_alien = aln.Minion_Alien("grumpy_alien.png")
-        grumpy_alien.set(x,y)
-        y+=space
-        self.aliens.add(grumpy_alien)
-
             
 
