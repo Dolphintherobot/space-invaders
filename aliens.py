@@ -49,6 +49,18 @@ class Alien(pygame.sprite.Sprite):
     def shoot(self):
         """Purpose:to return a bullet object at the position of the shooter"""
         return bullet(self.rect.x,self.rect.y)
+    
+    def set(self,x,y):
+        """Purpose: move the alien to an x,y coordinate
+        Param x: int representing x coordinate
+        Param y: int representing y coordinate
+        :Note: Will not do anything once an alien has been moved"""
+        if self.x !=0 or self.y != 0:
+            return
+        self.rect.x,self.rect.y = x,y
+
+    
+        
 
 
 
