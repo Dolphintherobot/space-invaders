@@ -48,7 +48,8 @@ class Alien(pygame.sprite.Sprite):
     
     def shoot(self):
         """Purpose:to return a bullet object at the position of the shooter"""
-        return bullet(self.rect.x,self.rect.y)
+        is_player = isinstance(self,Player)
+        return bullet(self.rect.x,self.rect.y,is_player)
     
     def set(self,x,y):
         """Purpose: move the alien to an x,y coordinate
@@ -102,24 +103,22 @@ class Player(Alien):
         pass
 
 class bullet(pygame.sprite.Sprite):
-    def __init__(self,x,y) -> None:
+    def __init__(self,x,y,player = True) -> None:
         super().__init__()
         self.image,self.rect = load_image("bullet.png")
         self.rect.x,self.rect.y = x,y
+        self.is_player = player
     
     def update(self):
-        self.rect.y -=1
+        if self.is_player:
+            self.rect.y -=1
 
-        if self.rect.y < -10:
-            self.kill()
+            if self.rect.y < -10:
+                self.kill()
+        else:
+            self.rect.y +=1
+
+            if self.rect.y > 1010:
+                self.kill()
 
 
-class alien_bullet(bullet):
-    def __init__(self, x, y) -> None:
-        super().__init__(x, y)
-    
-    def update(self):
-        self.rect.y +=1
-
-        if self.rect.y > 1010:
-            self.kill()
