@@ -116,13 +116,13 @@ class Space_invaders:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     done = True
-                if event.type == pygame.KEYDOWN:
-                    if event.key == pygame.K_RIGHT:
-                        self.player.move_right()
-                    
-                    if event.key == pygame.K_LEFT:
-                        self.player.move_left()
                 
+                       
+            keys = pygame.key.get_pressed()  
+            if keys[pygame.K_LEFT]:
+                self.player.move_left()
+            if keys[pygame.K_RIGHT]:
+                self.player.move_right()
 
             if self.collision_checker(self.walls,self.aliens):
                 move_right = not move_right
