@@ -95,7 +95,9 @@ class Player(Alien):
         """Purpose:overide the set method being inherited, this class should not have that functionality"""
         pass
     
-
+    def update(self):
+        """Purpose:overide the update method being inherited, this class should not have that functionality"""
+        pass
 
 class bullet(pygame.sprite.Sprite):
     def __init__(self,x,y) -> None:
