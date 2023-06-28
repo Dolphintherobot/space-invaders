@@ -1,5 +1,6 @@
 import pygame
 import aliens as aln
+import random as rn
 
 class Wall(pygame.sprite.Sprite):
     """Create a wall used for collision detection"""
@@ -112,6 +113,18 @@ class Space_invaders:
         if keys[pygame.K_RIGHT]:
             self.player.move_right()
 
+    def alien_shoot(self):
+        '''Purpose: to simulate the firing of the aliens
+        :Note: only the squid aliens are allowed to fire and has a 1/2 chance of not firing'''
+        is_firing = rn.choice([True,False])
+
+        if is_firing:
+            alien = rn.choice(self.aliens.sprites())
+            bullet = alien.shoot()
+            if isinstance(bullet,aln.bullet):
+                self.bullets.add(bullet)
+                self.all_sprites.add(bullet)
+
 
     def play(self):
         pygame.init()
@@ -136,8 +149,9 @@ class Space_invaders:
                         self.all_sprites.add(bullet)
 
 
-                     
+                 
             self.check_key()
+            self.alien_shoot()
 
             if self.collision_checker(self.walls,self.aliens):
                 move_right = not move_right
@@ -147,7 +161,10 @@ class Space_invaders:
 
                 if len(collision) > 0:
                     bullet.kill()
-            
+            if len(self.bullets) > 0:
+                collision = pygame.sprite.spritecollide(self.player,self.bullets,True)  
+
+    
             
             #draw and update images on screen
             self.screen.fill(self.screen_color)
