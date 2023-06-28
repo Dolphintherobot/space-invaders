@@ -75,6 +75,8 @@ class Minion_Alien(Alien):
         super().__init__(image)
         self.score = 10
 
+    def shoot(self):
+        pass
 
 
 class Player(Alien):
