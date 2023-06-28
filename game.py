@@ -34,10 +34,11 @@ class Space_invaders:
     
     def create_walls(self):
         '''Purpose:create walls for collision detection'''
-        top_wall = Wall(1,1000,(0,0),self.screen_color)
-        left_wall = Wall(1000,1,(0,0),self.screen_color)
-        right_wall = Wall(1000,1,(1000,0),self.screen_color)
+        top_wall = Wall(1,1000,(0,-1),self.screen_color)
+        left_wall = Wall(1000,1,(-1,0),self.screen_color)
+        right_wall = Wall(1000,1,(1001,0),self.screen_color)
         self.walls.add(top_wall,left_wall,right_wall)
+        # self.all_sprites.add(top_wall,left_wall,right_wall)
 
     
         
@@ -104,17 +105,24 @@ class Space_invaders:
         self.create_aliens()
         self.create_walls()
         done = False
+        move_right = True
         while not done:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     done = True
                 
 
-
+            if self.collision_checker(self.walls,self.aliens):
+                move_right = not move_right
            
-            self.screen.fill(self.screen_color)
             
+            #draw and update images on screen
+
+            self.screen.fill(self.screen_color)
             self.all_sprites.draw(self.screen)
+            self.aliens.draw(self.screen)
+            self.all_sprites.update()
+            self.aliens.update(move_right)
             
             pygame.display.flip()
             clock.tick(60)
