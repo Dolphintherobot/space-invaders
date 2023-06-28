@@ -112,3 +112,14 @@ class bullet(pygame.sprite.Sprite):
 
         if self.rect.y < -10:
             self.kill()
+
+
+class alien_bullet(bullet):
+    def __init__(self, x, y) -> None:
+        super().__init__(x, y)
+    
+    def update(self):
+        self.rect.y +=1
+
+        if self.rect.y > 1010:
+            self.kill()
