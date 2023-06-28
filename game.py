@@ -67,27 +67,42 @@ class Space_invaders:
         space = margin +squid.image.get_size()[1]
         y+=space
         self.aliens.add(squid)
-        self.all_sprites.add(squid)
+        # self.all_sprites.add(squid)
 
         for n in range(2):
             frog_alien = aln.Minion_Alien("frog_alien.png")
             frog_alien.set(x,y)
             y+=space
             self.aliens.add(frog_alien)
-            self.all_sprites.add(frog_alien)
+            # self.all_sprites.add(frog_alien)
 
         for n in range(2):
             grumpy_alien = aln.Minion_Alien("grumpy_alien.png")
             grumpy_alien.set(x,y)
             y+=space
             self.aliens.add(grumpy_alien)
-            self.all_sprites.add(grumpy_alien)
+            # self.all_sprites.add(grumpy_alien)
+        
+    def collision_checker(self,group,other):
+        '''Purpose: check if any memeber of 2 groups of sprites have collided
+        with each other
+        :Param group:a sprite object
+        :Param other:another sprite object
+        :Return: True if collision is detected, False otherwise'''
+
+        for sprite in group:
+            a_list = pygame.sprite.spritecollide(sprite,other,False)
+            if len(a_list) > 0:
+                return True 
+        return False
+
 
 
     def play(self):
         pygame.init()
         clock = pygame.time.Clock()
         self.create_aliens()
+        self.create_walls()
         done = False
         while not done:
             for event in pygame.event.get():
