@@ -109,6 +109,7 @@ class Space_invaders:
         self.create_aliens()
         self.create_walls()
         self.setup_player()
+        player_bullets = pygame.sprite.Group()
     
         done = False
         move_right = True
@@ -116,25 +117,40 @@ class Space_invaders:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     done = True
-                
-                       
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_SPACE:
+                        if len(player_bullets) > 0:
+                            continue
+                        bullet = self.player.shoot()
+                        player_bullets.add(bullet)
+                        self.all_sprites.add(bullet)
+
+
+                     
             keys = pygame.key.get_pressed()  
             if keys[pygame.K_LEFT]:
                 self.player.move_left()
+
             if keys[pygame.K_RIGHT]:
                 self.player.move_right()
 
             if self.collision_checker(self.walls,self.aliens):
                 move_right = not move_right
            
+            if len(player_bullets) > 0:
+                collision = pygame.sprite.spritecollide(bullet,self.aliens,True)  
+                
+                if len(collision) > 0:
+                    bullet.kill()
+            
             
             #draw and update images on screen
-
             self.screen.fill(self.screen_color)
             self.all_sprites.draw(self.screen)
             self.aliens.draw(self.screen)
             self.all_sprites.update()
             self.aliens.update(move_right)
+            player_bullets.update()
             
             pygame.display.flip()
             clock.tick(60)
