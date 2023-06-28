@@ -40,7 +40,11 @@ class Space_invaders:
         self.walls.add(top_wall,left_wall,right_wall)
         # self.all_sprites.add(top_wall,left_wall,right_wall)
 
-    
+    def setup_player(self,x = 500,y = 500):
+        '''Purpose:get player class staged'''
+        self.player.rect.x = x
+        self.player.rect.y = y
+        self.all_sprites.add(self.player)
         
     def create_aliens(self):
             """Purpose:to create a 11x5 section of aliens
@@ -104,12 +108,20 @@ class Space_invaders:
         clock = pygame.time.Clock()
         self.create_aliens()
         self.create_walls()
+        self.setup_player()
+    
         done = False
         move_right = True
         while not done:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     done = True
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_RIGHT:
+                        self.player.move_right()
+                    
+                    if event.key == pygame.K_LEFT:
+                        self.player.move_left()
                 
 
             if self.collision_checker(self.walls,self.aliens):
