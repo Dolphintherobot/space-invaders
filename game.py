@@ -101,6 +101,16 @@ class Space_invaders:
                 return True 
         return False
 
+    def check_key(self):
+        '''Purpose:check to see if a key is being held down so the player can move
+        :Return:None
+        '''
+        keys = pygame.key.get_pressed()  
+        if keys[pygame.K_LEFT]:
+            self.player.move_left()
+
+        if keys[pygame.K_RIGHT]:
+            self.player.move_right()
 
 
     def play(self):
@@ -127,19 +137,14 @@ class Space_invaders:
 
 
                      
-            keys = pygame.key.get_pressed()  
-            if keys[pygame.K_LEFT]:
-                self.player.move_left()
-
-            if keys[pygame.K_RIGHT]:
-                self.player.move_right()
+            self.check_key()
 
             if self.collision_checker(self.walls,self.aliens):
                 move_right = not move_right
            
             if len(player_bullets) > 0:
                 collision = pygame.sprite.spritecollide(bullet,self.aliens,True)  
-                
+
                 if len(collision) > 0:
                     bullet.kill()
             
