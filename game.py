@@ -115,8 +115,8 @@ class Space_invaders:
 
     def alien_shoot(self):
         '''Purpose: to simulate the firing of the aliens
-        :Note: only the squid aliens are allowed to fire and has a 1/2 chance of not firing'''
-        is_firing = rn.choice([True,False])
+        :Note: only the squid aliens are allowed to fire and has a 1/50 chance of not firing'''
+        is_firing = rn.choice([False for i in range(49)] + [True])
 
         if is_firing:
             alien = rn.choice(self.aliens.sprites())
