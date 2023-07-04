@@ -162,9 +162,19 @@ class Space_invaders:
             if isinstance(bullet,aln.bullet):
                 self.bullets.add(bullet)
                 self.all_sprites.add(bullet)
+    
+    def start(self):
+        """Purpose:to display the start screen"""
+        self.screen.fill(self.screen_color)
+        game_text = text("Space invaders",(400,400))
+        play_text = text("Press s to start",(100,100))
+        game_text.draw(self.screen,(400,500))
+        play_text.draw(self.screen,(600,600))
+        pygame.display.flip()
 
 
     def play(self):
+        """Purpose:to play the game"""
         pygame.init()
         clock = pygame.time.Clock()
         self.create_aliens()
@@ -174,19 +184,24 @@ class Space_invaders:
     
         done = False
         move_right = True
+        is_started = False
         while not done:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     done = True
                 if event.type == pygame.KEYDOWN:
-                    if event.key == pygame.K_SPACE:
+                    if event.key == pygame.K_s and not is_started:
+                        is_started = True
+                    if event.key == pygame.K_SPACE and is_started:
                         if len(player_bullets) > 0:
                             continue
                         bullet = self.player.shoot()
                         player_bullets.add(bullet)
                         self.all_sprites.add(bullet)
 
-
+            if not is_started:
+                self.start()
+                continue
                  
             self.check_key()
             self.alien_shoot()
