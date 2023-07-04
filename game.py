@@ -17,6 +17,44 @@ class Wall(pygame.sprite.Sprite):
         self.rect = self.surface.get_rect()
         self.rect.x,self.rect.y = pos
 
+class text(object):
+    """Purpose:create a text object that can be blitted on screen """
+    def __init__(self,text,size,color = (0,0,0),) -> None:
+        """
+        Param text: string representing the text you want on screen
+        Param size: tuple (height,width) representing size of text
+        Param color: tuple representing rgb value of the color of the text """
+        self.size = size
+        self.color = color
+        self.text = self.create_text(text,size,color)
+    
+    def create_text(self,text,size,color):
+        ''''Purpose: to generate text that can be drawn onto screen
+        Param text: string representing the text you want on screen
+        Param size: tuple (height,width) representing size of text
+        Param color: tuple representing rgb value of the color of the text
+        Return font: Surface object that represents the font'''
+        font_type = pygame.font.get_default_font()
+        font = pygame.font.Font(font_type)
+        font = font.render(text,True,color)
+        font = pygame.transform.scale(font,size)
+        return font
+    
+    def draw(self,screen,pos):
+        """Purpose: draw text on screen
+        Param screen: surface wanting to blit onto
+        Param pos: x,y tuple of where the text should be drawn onto"""
+        
+        screen.blit(self.text,pos)
+    
+    def update_text(self,new_text):
+        '''Purpose:change the text that the text object is displaying
+        Param text: string representing the new text'''
+        self.text = self.create_text(new_text,self.size,self.color)
+
+    
+    
+    
 
 class Space_invaders:
 
