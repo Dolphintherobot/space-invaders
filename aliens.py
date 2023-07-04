@@ -38,13 +38,17 @@ class Alien(pygame.sprite.Sprite):
         
     
 
-    def update(self,right=True):
+    def update(self,right=True,down = False):
         """Purpose: move the sprite left of right
-        :param right: boolean indicating if the sprite is moving right of not"""
+        :param right: boolean indicating if the sprite is moving right or not
+        param down: boolean indicating if the sprite is moving down or not """
         if right:
             self.rect.x +=1
         else:
             self.rect.x -=1
+        
+        if down:
+            self.rect.y +=5
     
     def shoot(self):
         """Purpose:to return a bullet object at the position of the shooter"""
