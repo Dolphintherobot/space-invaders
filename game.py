@@ -155,6 +155,7 @@ class Space_invaders:
 
             if self.collision_checker(self.walls,self.aliens):
                 move_right = not move_right
+                self.aliens.update(move_right,True)
            
             if len(player_bullets) > 0:
                 collision = pygame.sprite.spritecollide(bullet,self.aliens,True)  
@@ -162,10 +163,13 @@ class Space_invaders:
                 if len(collision) > 0:
                     bullet.kill()
             if len(self.bullets) > 0:
-                collision = pygame.sprite.spritecollide(self.player,self.bullets,True)  
+                collision = pygame.sprite.spritecollide(self.player,self.bullets,True) 
+                if len(collision) > 0:
+                    self.lives -=1 
 
     
             
+
             #draw and update images on screen
             self.screen.fill(self.screen_color)
             self.all_sprites.draw(self.screen)
