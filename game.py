@@ -37,7 +37,7 @@ class text(object):
         font_type = pygame.font.get_default_font()
         font = pygame.font.Font(font_type)
         font = font.render(text,True,color)
-        font = pygame.transform.scale(font,size)
+        font = pygame.transform.smoothscale(font,size)
         return font
     
     def draw(self,screen,pos):
@@ -77,7 +77,7 @@ class Space_invaders:
         left_wall = Wall(1000,1,(-1,0),self.screen_color)
         right_wall = Wall(1000,1,(1001,0),self.screen_color)
         self.walls.add(top_wall,left_wall,right_wall)
-        # self.all_sprites.add(top_wall,left_wall,right_wall)
+        
 
     def setup_player(self,x = 500,y = 500):
         '''Purpose:get player class staged'''
@@ -111,21 +111,21 @@ class Space_invaders:
         space = margin +squid.image.get_size()[1]
         y+=space
         self.aliens.add(squid)
-        # self.all_sprites.add(squid)
+       
 
         for n in range(2):
             frog_alien = aln.Minion_Alien("frog_alien.png")
             frog_alien.set(x,y)
             y+=space
             self.aliens.add(frog_alien)
-            # self.all_sprites.add(frog_alien)
+            
 
         for n in range(2):
             grumpy_alien = aln.Minion_Alien("grumpy_alien.png")
             grumpy_alien.set(x,y)
             y+=space
             self.aliens.add(grumpy_alien)
-            # self.all_sprites.add(grumpy_alien)
+            
         
     def collision_checker(self,group,other):
         '''Purpose: check if any memeber of 2 groups of sprites have collided
@@ -164,12 +164,13 @@ class Space_invaders:
                 self.all_sprites.add(bullet)
     
     def start(self):
-        """Purpose:to display the start screen"""
+        """Purpose:to display the start screen
+        """
         self.screen.fill(self.screen_color)
-        game_text = text("Space invaders",(400,400))
-        play_text = text("Press s to start",(100,100))
-        game_text.draw(self.screen,(400,500))
-        play_text.draw(self.screen,(600,600))
+        game_text = text("Space invaders",(400,100))
+        play_text = text("Press s to start",(300,100))
+        game_text.draw(self.screen,(313,28))
+        play_text.draw(self.screen,(350,330))
         pygame.display.flip()
 
 
@@ -189,6 +190,9 @@ class Space_invaders:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     done = True
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    x,y = pygame.mouse.get_pos()
+                    print(x,y)
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_s and not is_started:
                         is_started = True
