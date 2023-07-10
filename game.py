@@ -60,6 +60,12 @@ class Space_invaders:
 
     def __init__(self) -> None:
         '''Initialize a game of space invaders'''
+        self.setup_game()
+    
+
+
+    def setup_game(self):
+        """Purpose:to create the data being modified during the game"""
         size = (1000,1000)
         self.screen_color = (255,255,255)
         self.screen = pygame.display.set_mode(size)
@@ -194,6 +200,26 @@ class Space_invaders:
         play_text.draw(self.screen,(350,330))
         pygame.display.flip()
 
+    def game_over(self):
+        """Purpose:displays the game over screen and re-runs the game if neccesary
+        """
+        done = False
+        while not done:
+            for event in pygame.event.get():
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_s:
+                        print("hallo")
+                        self.setup_game()
+                        self.play()
+                if event.type == pygame.QUIT:
+                    done = True
+                    continue
+            self.screen.fill(self.screen_color)
+            game_over_text = text("Game over",(400,100))
+            play_again_text = text("Press s to restart",(300,100))
+            game_over_text.draw(self.screen,(313,28))
+            play_again_text.draw(self.screen,(350,330))
+            pygame.display.flip()
 
 
 
@@ -230,8 +256,14 @@ class Space_invaders:
                         player_bullets.add(bullet)
                         self.all_sprites.add(bullet)
 
+
+            #check if game is being played
             if not is_started:
                 self.start()
+                continue
+            
+            if self.lives < 1:
+                self.game_over()
                 continue
                  
             self.check_key()
@@ -255,7 +287,7 @@ class Space_invaders:
                 if len(collision) > 0:
                     self.lives -=1 
 
-    
+            
             
 
             #draw and update images on screen
