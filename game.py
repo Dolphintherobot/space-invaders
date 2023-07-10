@@ -163,6 +163,27 @@ class Space_invaders:
                 self.bullets.add(bullet)
                 self.all_sprites.add(bullet)
     
+    def update_screen_text(self,score:text,lives:text) -> None:
+        '''Purpose:to draw and update text on screen
+        param score: text object representing the score
+        param lives: text object representing the lives
+        note: will change what is being written on text if conditions are meet
+        '''
+        score.update_text(f"score:{self.score}")
+        score.draw(self.screen,(900,650))
+        lives.update_text(f"lives:{self.lives}")
+        lives.draw(self.screen,(800,650))
+
+    def update_screen(self):
+        """Purpose: update objects on screen
+        Return: None"""
+
+        self.screen.fill(self.screen_color)
+        self.all_sprites.draw(self.screen)
+        self.aliens.draw(self.screen)
+        self.all_sprites.update()
+
+
     def start(self):
         """Purpose:to display the start screen
         """
@@ -172,6 +193,8 @@ class Space_invaders:
         game_text.draw(self.screen,(313,28))
         play_text.draw(self.screen,(350,330))
         pygame.display.flip()
+
+
 
 
     def play(self):
@@ -186,6 +209,10 @@ class Space_invaders:
         done = False
         move_right = True
         is_started = False
+
+        score_text = text(f"score:{self.score}",(50,25))
+        lives_text = text(f"score:{self.lives}",(50,25))
+
         while not done:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
@@ -210,6 +237,8 @@ class Space_invaders:
             self.check_key()
             self.alien_shoot()
 
+            #checking for sprite collisions
+
             if self.collision_checker(self.walls,self.aliens):
                 move_right = not move_right
                 self.aliens.update(move_right,True)
@@ -228,12 +257,10 @@ class Space_invaders:
             
 
             #draw and update images on screen
-            self.screen.fill(self.screen_color)
-            self.all_sprites.draw(self.screen)
-            self.aliens.draw(self.screen)
-            self.all_sprites.update()
+            self.update_screen()
             self.aliens.update(move_right)
             player_bullets.update()
+            self.update_screen_text(score_text,lives_text)
             
             pygame.display.flip()
             clock.tick(60)
