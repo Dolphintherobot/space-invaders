@@ -248,6 +248,8 @@ class Space_invaders:
 
                 if len(collision) > 0:
                     bullet.kill()
+                    for alien in collision:
+                        self.score += alien.score
             if len(self.bullets) > 0:
                 collision = pygame.sprite.spritecollide(self.player,self.bullets,True) 
                 if len(collision) > 0:
