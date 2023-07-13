@@ -146,7 +146,7 @@ class Space_invaders:
                 return True 
         return False
 
-    def check_key(self):
+    def move_player(self):
         '''Purpose:check to see if a key is being held down so the player can move
         :Return:None
         '''
@@ -223,6 +223,37 @@ class Space_invaders:
 
 
 
+    def hit_checker(self,player_bullets:pygame.sprite.Group,bullet:aln.bullet):
+        """Purpose:check for collisions between sprites and bullets
+        :Param player_bullets: sprite group of the players bullets
+        :Param bullet: bullet object
+        :Note: will remove sprites from groups if collision is detected"""
+        if len(player_bullets) > 0:
+            collision = pygame.sprite.spritecollide(bullet,self.aliens,True)  
+
+            if len(collision) > 0:
+                bullet.kill()
+                for alien in collision:
+                    self.score += alien.score
+
+
+        if len(self.bullets) > 0:
+            collision = pygame.sprite.spritecollide(self.player,self.bullets,True) 
+            if len(collision) > 0:
+                self.lives -=1 
+
+    
+    def alien_rengenerator(self):
+        '''Purpose to create more aliens once the player has killed them all
+        :Note: will update self.aliens and self.bullets '''
+        if len(self.aliens.sprites()) == 0:
+            self.create_aliens()
+            self.bullets.clear(self.screen,self.screen_color)
+            self.bullets.empty()
+            self.lives +=1
+
+
+
     def play(self):
         """Purpose:to play the game"""
         pygame.init()
@@ -235,6 +266,7 @@ class Space_invaders:
         done = False
         move_right = True
         is_started = False
+        bullet = None
 
         score_text = text(f"score:{self.score}",(50,25))
         lives_text = text(f"score:{self.lives}",(50,25))
@@ -266,7 +298,7 @@ class Space_invaders:
                 self.game_over()
                 continue
                  
-            self.check_key()
+            self.move_player()
             self.alien_shoot()
 
             #checking for sprite collisions
@@ -275,23 +307,10 @@ class Space_invaders:
                 move_right = not move_right
                 self.aliens.update(move_right,True)
            
-            if len(player_bullets) > 0:
-                collision = pygame.sprite.spritecollide(bullet,self.aliens,True)  
+            self.hit_checker(player_bullets,bullet)
+            self.alien_rengenerator()
 
-                if len(collision) > 0:
-                    bullet.kill()
-                    for alien in collision:
-                        self.score += alien.score
-            if len(self.bullets) > 0:
-                collision = pygame.sprite.spritecollide(self.player,self.bullets,True) 
-                if len(collision) > 0:
-                    self.lives -=1 
-
-            if len(self.aliens.sprites()) == 0:
-                self.create_aliens()
-                self.bullets.clear(self.screen,self.screen_color)
-                self.bullets.empty()
-                self.lives +=1
+            
 
             
             
