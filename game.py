@@ -300,6 +300,7 @@ class Space_invaders:
                  
             self.move_player()
             self.alien_shoot()
+            self.alien_rengenerator()
 
             #checking for sprite collisions
 
@@ -308,11 +309,6 @@ class Space_invaders:
                 self.aliens.update(move_right,True)
            
             self.hit_checker(player_bullets,bullet)
-            self.alien_rengenerator()
-
-            
-
-            
             
 
             #draw and update images on screen
