@@ -287,6 +287,12 @@ class Space_invaders:
                 if len(collision) > 0:
                     self.lives -=1 
 
+            if len(self.aliens.sprites()) == 0:
+                self.create_aliens()
+                self.bullets.clear(self.screen,self.screen_color)
+                self.bullets.empty()
+                self.lives +=1
+
             
             
 
