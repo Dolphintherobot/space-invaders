@@ -67,14 +67,14 @@ class Space_invaders:
     def setup_game(self):
         """Purpose:to create the data being modified during the game"""
         size = (1000,1000)
-        self.screen_color = (255,255,255)
+        self.screen_color = (0,0,255)
         self.screen = pygame.display.set_mode(size)
         self.score = 0
         self.lives = 3
         self.aliens = pygame.sprite.Group()
         self.walls = pygame.sprite.Group()
         self.bullets = pygame.sprite.Group()
-        self.player = aln.Player("player.png")
+        self.player = aln.Player("player (1).png")
         self.all_sprites = pygame.sprite.Group()
     
     def create_walls(self):
@@ -96,7 +96,7 @@ class Space_invaders:
             """
             x = 0
             y = 0
-            size_alien = aln.Alien("green_squid.png")
+            size_alien = aln.Alien("enemy1.png")
             size = size_alien.image.get_size()
             margin  = 15
             space = margin + size[0]
@@ -112,7 +112,7 @@ class Space_invaders:
         
         margin = 15
 
-        squid = aln.Squid_Alien("green_squid.png")
+        squid = aln.Squid_Alien("enemy3.png")
         squid.set(x,y)
         space = margin +squid.image.get_size()[1]
         y+=space
@@ -120,14 +120,14 @@ class Space_invaders:
        
 
         for n in range(2):
-            frog_alien = aln.Minion_Alien("frog_alien.png")
+            frog_alien = aln.Minion_Alien("enemy2.png")
             frog_alien.set(x,y)
             y+=space
             self.aliens.add(frog_alien)
             
 
         for n in range(2):
-            grumpy_alien = aln.Minion_Alien("grumpy_alien.png")
+            grumpy_alien = aln.Minion_Alien("enemy1.png")
             grumpy_alien.set(x,y)
             y+=space
             self.aliens.add(grumpy_alien)
@@ -221,6 +221,8 @@ class Space_invaders:
             play_again_text.draw(self.screen,(350,330))
             pygame.display.flip()
 
+    pygame.quit()
+
 
 
     def hit_checker(self,player_bullets:pygame.sprite.Group,bullet:aln.bullet):
@@ -275,9 +277,6 @@ class Space_invaders:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     done = True
-                if event.type == pygame.MOUSEBUTTONDOWN:
-                    x,y = pygame.mouse.get_pos()
-                    print(x,y)
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_s and not is_started:
                         is_started = True
