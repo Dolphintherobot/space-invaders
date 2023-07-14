@@ -109,7 +109,9 @@ class Player(Alien):
 class bullet(pygame.sprite.Sprite):
     def __init__(self,x,y,player = True) -> None:
         super().__init__()
-        self.image,self.rect = load_image("bullet.png",0.5)
+        self.image = pygame.Surface((4,15))
+        self.rect = self.image.get_rect()
+        self.image.fill((0, 128, 0))
         self.rect.x,self.rect.y = x,y
         self.is_player = player
     
