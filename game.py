@@ -19,7 +19,7 @@ class Wall(pygame.sprite.Sprite):
 
 class text(object):
     """Purpose:create a text object that can be blitted on screen """
-    def __init__(self,text,size,color = (0,0,0),) -> None:
+    def __init__(self,text,size,color = (0, 128, 0),) -> None:
         """
         Param text: string representing the text you want on screen
         Param size: tuple (height,width) representing size of text
@@ -67,7 +67,7 @@ class Space_invaders:
     def setup_game(self):
         """Purpose:to create the data being modified during the game"""
         size = (1000,1000)
-        self.screen_color = (0,0,255)
+        self.screen_color = (0,0,0)
         self.screen = pygame.display.set_mode(size)
         self.score = 0
         self.lives = 3
