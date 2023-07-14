@@ -72,7 +72,7 @@ class Alien(pygame.sprite.Sprite):
 class Squid_Alien(Alien):
     def __init__(self, image):
         super().__init__(image)
-        self.score = 10
+        self.score = 30
 
 
 class Minion_Alien(Alien):
@@ -109,7 +109,7 @@ class Player(Alien):
 class bullet(pygame.sprite.Sprite):
     def __init__(self,x,y,player = True) -> None:
         super().__init__()
-        self.image,self.rect = load_image("bullet.png")
+        self.image,self.rect = load_image("bullet.png",0.5)
         self.rect.x,self.rect.y = x,y
         self.is_player = player
     
